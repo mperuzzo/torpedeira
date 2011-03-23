@@ -1,0 +1,25 @@
+Torpedeira SMS
+
+Seu sistema WEB necessita enviar SMS para clientes?
+Para resolver seu problema foi desenvolvido o aplicativo Torpedeira SMS, capaz de enviar SMS para quem você quiser, independente de operadora, necessita apenas de um CHIP de qualquer operadora.
+
+O aplicativo é instalado em um celular com android e recebe requisições de qualquer outro dispositivo capaz de envia-las via Socket (Java, PHP, etc...). Para iniciar o aplicativo o celular deve estar conectado em uma rede Wireless, então a aplicação fica aguardando as requisições em um IP e Porta configurados, conforme figura 1.
+
+O aplicativo recebe uma string com o número do celular e a mensagem.
+
+O SMS é tarifado de acordo com cada operadora e seu tipo de plano.
+
+Para testes é disponibilzado um classe Java.
+
+Socket socket = new Socket(IP_TORPEDEIRA_SMS, 2108); // Ao iniciar o Torpedeira SMS no Android é exibido um ip (devemos usar este IP)
+try {
+							
+	StringBuffer msg = new StringBuffer();
+	msg.append("Olá").append("Marcos Peruzzo").append(". ");
+	PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+	String linha = NRO_CELULAR+";;"+msg.toString();
+	out.println(linha);
+} catch (Exception e) {
+	System.out.println(e.getMessage());
+}
+socket.close();
